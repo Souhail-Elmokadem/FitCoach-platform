@@ -1,6 +1,7 @@
 package com.fitcoach.fitcoach.dtos;
 
 
+import com.fitcoach.fitcoach.enums.Role;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
@@ -29,8 +30,6 @@ public class CoachDTO{
     private Date createdAt;
 
     private Date updateAt;
-
-
 
 
 }

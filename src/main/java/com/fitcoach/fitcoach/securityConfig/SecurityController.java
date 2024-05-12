@@ -3,7 +3,11 @@ package com.fitcoach.fitcoach.securityConfig;
 
 
 
+import com.fitcoach.fitcoach.dao.Repository.ClientRepository;
+import com.fitcoach.fitcoach.dao.Repository.CoachRepository;
 import com.fitcoach.fitcoach.dao.Repository.PersonRepository;
+import com.fitcoach.fitcoach.dao.entity.Client;
+import com.fitcoach.fitcoach.dao.entity.Coach;
 import com.fitcoach.fitcoach.dao.entity.Person;
 import com.fitcoach.fitcoach.enums.Role;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +64,11 @@ public class SecurityController {
 
     private  PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private CoachRepository coachRepository;
+    @Autowired
+    private ClientRepository clientRepository;
+
 
     @Autowired
 
@@ -70,6 +79,7 @@ public class SecurityController {
     }
     @PostMapping("/login")
     public ResponseEntity<Map<String, String>> login(@RequestBody LoginRequest loginRequest) {
+        System.out.println(loginRequest);
         Instant now = Instant.now();
         Map<String, String> tokens = new HashMap<>();
         String subject = "";
@@ -123,6 +133,7 @@ public class SecurityController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
+
     @PostMapping("/register")
     public Map<String,String> Register(@RequestBody RegisterRequest request){
         var user = Person.builder()
@@ -130,11 +141,21 @@ public class SecurityController {
                 .lastName(request.getLastName())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(Role.USER)
+                .avatar("http://localhost:9090/content/logo.png")
+                .role(request.getRole())
                 .createdAt(new Date())
                 .updateAt(new Date())
                 .build();
-        personRepository.save(user);
+
+
+        if (request.getRole().equals(Role.COACH)) {
+            coachRepository.save(
+                    new Coach(user.getId(),user.getFirstName(),user.getLastName(),user.getEmail(),user.getAvatar(),new Date(),new Date(),user.getPassword(),user.getRole()));
+
+        }else if (request.getRole().equals(Role.USER)){
+            clientRepository.save(
+                    new Client(user.getId(),user.getFirstName(),user.getLastName(),user.getEmail(),user.getAvatar(),new Date(),new Date(),user.getPassword(),user.getRole()));
+        }
         Instant instant = Instant.now();
         jwtClaimsSet = JwtClaimsSet.builder()
                 .issuedAt(instant)
@@ -149,7 +170,8 @@ public class SecurityController {
         String jwt = jwtEncoder.encode(jwtEncoderParameters).getTokenValue();
         return Map.of("access-token",jwt);
     }
-//    PostMapping("/login")
+
+//    @PostMapping("/login")
 //    public Map<String,String> Login(String LoginType,String username, String password ,String refresh_token){
 //        String subject = "";
 //        String scope = "";

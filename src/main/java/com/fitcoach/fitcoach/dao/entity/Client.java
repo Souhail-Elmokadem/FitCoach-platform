@@ -5,9 +5,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @AllArgsConstructor
@@ -27,6 +25,16 @@ public class Client extends Person {
 
     @OneToMany(mappedBy = "client")
     Collection<Review> reviews;
+
+    public Client(Long id, String firstName, String lastName, String email, String avatar, Date date, Date date1, String password, Role role) {
+        super(id,firstName,lastName,email,avatar,date,date1,password,role);
+        this.coach=null;
+        this.programme=null;
+        this.paiementsHistory=new ArrayList<>();
+        this.reviews=new ArrayList<>();
+        this.setAvatar("http://localhost:9090/content/logo.png");
+    }
+
 
     @Override
     public String toString() {

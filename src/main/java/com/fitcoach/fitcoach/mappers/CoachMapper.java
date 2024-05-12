@@ -3,8 +3,11 @@ package com.fitcoach.fitcoach.mappers;
 
 import com.fitcoach.fitcoach.dao.entity.Coach;
 import com.fitcoach.fitcoach.dtos.CoachDTO;
+import com.fitcoach.fitcoach.enums.Role;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 
 @Service
 public class CoachMapper {

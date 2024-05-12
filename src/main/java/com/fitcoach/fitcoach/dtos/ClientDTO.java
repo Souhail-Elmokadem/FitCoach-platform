@@ -19,6 +19,7 @@ public class ClientDTO {
     private String firstName;
 
     private String lastName;
+    private String email;
 
     private String avatar;
 
@@ -29,7 +30,7 @@ public class ClientDTO {
 
     private CoachDTO coach;
 
-    private Programme programme;
+    private ProgrammeDTO programme;
 
 
 }

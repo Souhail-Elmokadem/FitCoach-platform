@@ -5,15 +5,17 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 @Entity
-
+@AllArgsConstructor
 @Data
 @Table(name = "coach")
 public class Coach extends Person{
+
 
 
     @OneToMany(mappedBy = "coach")
@@ -27,10 +29,18 @@ public class Coach extends Person{
 
 
 
-    public Coach(){
-        super();
-        this.setRole(Role.COACH);
+
+
+
+    public Coach() {
+
     }
 
-
+    public Coach(Long id, String firstName, String lastName, String email, String avatar, Date date, Date date1, String password, Role role) {
+        super(id,firstName,lastName,email,avatar,date,date1,password,role);
+        this.members=new ArrayList<>();
+        this.comments = new ArrayList<>();
+        this.programmes= new ArrayList<>();
+        this.setAvatar("http://localhost:9090/content/logo.png");
+    }
 }

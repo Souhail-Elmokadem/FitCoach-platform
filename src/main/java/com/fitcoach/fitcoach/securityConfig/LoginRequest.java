@@ -1,6 +1,7 @@
 package com.fitcoach.fitcoach.securityConfig;
 
 
+import com.fitcoach.fitcoach.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,4 +16,5 @@ public class LoginRequest {
     String email;
     String password;
     String refreshToken;
+
 }

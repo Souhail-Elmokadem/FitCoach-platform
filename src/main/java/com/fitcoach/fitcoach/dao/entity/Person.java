@@ -16,12 +16,13 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.stream.Collectors;
 
-@Entity
+
 @AllArgsConstructor
 @Data
 @Builder
+@Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public  class Person implements UserDetails {
+public class Person implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
@@ -48,20 +49,7 @@ public  class Person implements UserDetails {
         this.setAvatar("http://localhost:9090/content/logo.png");
     }
 
-    @Override
-    public String toString() {
-        return "Person{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", avatar='" + avatar + '\'' +
-                ", createdAt=" + createdAt +
-                ", updateAt=" + updateAt +
-                ", password='" + password + '\'' +
-                ", role=" + role +
-                '}';
-    }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -10,6 +10,9 @@ import java.util.Collections;
 @Entity
 @Data
 public class Admin extends Person {
+    @Id
+    @GeneratedValue(strategy = GenerationType.TABLE)
+    private Long id;
     public Admin() {
         super();
         this.setRole(Role.ADMIN);

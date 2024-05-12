@@ -38,7 +38,7 @@ public class FitCoachApplication implements CommandLineRunner {
     private PersonRepository personRepository;
     @Override
     public void run(String... args) throws Exception {
-         CoachDTO coachDTO = new CoachDTO(null,"souhail","el mokadem","ahmed@google",null,new Date(),new Date());
+         //CoachDTO coachDTO = new CoachDTO(null,"souhail","el mokadem","ahmed@google",null,new Date(),new Date());
          //ClientDTO clientDTO = new ClientDTO(null,"client 1","clientlast","",new Date(),new Date(),null,null);
 //        Client client = clientMapper.map(clientDTO);
         //System.out.println(client.toString());
@@ -47,7 +47,7 @@ public class FitCoachApplication implements CommandLineRunner {
         //Person p = new Person(null,"souhail","elm","souhail@login.ma","",new Date(),new Date(),"1234", Role.ADMIN));
         //personRepository.save(p);
        // CoachDTO c = new CoachDTO(null,"Mohammed","Salhi","");
-        coachManager.AddCoach(coachDTO);
+        //coachManager.AddCoach(coachDTO);
 
 
 //         clientDTO.setAvatar("kkk com");
