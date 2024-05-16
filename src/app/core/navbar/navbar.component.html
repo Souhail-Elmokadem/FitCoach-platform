@@ -1,7 +1,7 @@
 <nav *ngIf="hideNavbarService()" class="body">
   <div class="nav__logo">
-    <a href="#"><img src="assets/logo2.png" alt="logo" /></a>
-    <li class="link"><a href="#">Features</a></li>
+    <a routerLink="/"><img src="assets/logo2.png" alt="logo" /></a>
+    <li class="link"><a routerLink="explorer">Explore</a></li>
     <li class="link"><a href="#">Prices</a></li>
   </div>
   <ul class="nav__links">
@@ -12,7 +12,8 @@
    <button class="btn" routerLink="auth/login" *ngIf="!authservice.IsLogged()">Login</button>
    <button class="btn-sec" routerLink="auth/register" *ngIf="!authservice.IsLogged()">Register</button>
    <ng-container *ngIf="authservice.IsLogged()">
-   <button class="text-white mr-5" routerLink="/">{{authservice.sessiondata.username}}</button>
+   <button class="text-white mr-5" >{{authservice.sessiondata.username}}</button>
+   <button class="text-white mr-5" routerLink="/client/service">Dashboard</button>
    <button class="text-lime-400" routerLink="/" (click)="this.authservice.Logout()">Logout</button>
    </ng-container>
   </div>
