@@ -1,3 +1,4 @@
+import { Client } from "./Client";
 import { Coach } from "./Coach";
 export interface Program {
     id: number;
@@ -17,4 +18,5 @@ export interface Program {
     objectifs: String;
 
     coach: Coach;
+    members : Array<Client>;
 }

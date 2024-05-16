@@ -2,34 +2,48 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ProgramService } from '../../../../core/services/program/program.service';
 import { Router } from '@angular/router';
+import { Client } from '../../../models/Client';
+import { ClientService } from '../../../../core/services/client/client.service';
+import { map } from 'rxjs';
 
 @Component({
-  selector: 'app-program-create',
+  selector: 'app-progemail?: stringemail: stringram-create',
   templateUrl: './program-create.component.html',
   styleUrl: './program-create.component.css'
 })
 export class ProgramCreateComponent implements OnInit {
 
 
+
+
+
   currentIndex: number = 0;
   attachment?: File;
   URL: any;
-  formProgram!: FormGroup
-  constructor(private fb: FormBuilder, private programservice: ProgramService, private router: Router) {
- 
-  }
-  ngOnInit(): void {
-   this.formProgram = this.fb.group({
+  formProgram!: FormGroup;
+  clientlist:Array<Client> = [];
+  size:number=3;
+  currentPage:number=0;
+  kayword:string="";
+  clientAffected:Array<Client> = []
+  constructor(private fb: FormBuilder,private clientservice:ClientService
+    , private programservice: ProgramService, private router: Router) {
+ this.formProgram = this.fb.group({
       name: [''],
       description: [''],
       duree: [''],
       seance: [''],
       objectifs: ['']
     })
+   
+  }
+  ngOnInit(): void {
+   
+    this.getListClients();
   }
   handleSubmit() {
     if(this.attachment != undefined) {
-      this.programservice.addProgram(this.formProgram, this.attachment).subscribe({
+      this.programservice.addProgram(this.formProgram, this.attachment,this.clientAffected).subscribe({
       next: data => { 
         console.log(data)
         this.router.navigateByUrl('service/program')
@@ -60,5 +74,22 @@ export class ProgramCreateComponent implements OnInit {
     }
   }
 
+  getListClients(){
+      this.clientservice.listClientCoach(this.kayword,this.currentPage,this.size).pipe(
+        map((data:any)=>data.items)
+      ).subscribe({
+        next:(data:any)=>this.clientlist=data,
+        error:err=>console.log(err)
+      })
+  }
+  handleAffect(client:Client) {
+     console.log(client)
+     this.kayword=''
+     this.clientAffected.push(client)
+  }
+  handlesearch(event: any) {
+    this.getListClients();
+    
+  }
 
 }

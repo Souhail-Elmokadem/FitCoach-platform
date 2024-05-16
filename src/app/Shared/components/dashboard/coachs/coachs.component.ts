@@ -24,7 +24,7 @@ export class CoachsComponent implements OnInit {
   }
 
   getClients(): void {
-    this.clientservice.getClients(this.keyword, this.currentPage, this.size).subscribe({
+    this.clientservice.listClientCoach(this.keyword, this.currentPage, this.size).subscribe({
       next: (data: any) => {
         this.clients = data.items;
         this.totalItems = data.totalItems;

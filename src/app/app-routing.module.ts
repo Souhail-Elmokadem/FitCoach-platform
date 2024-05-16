@@ -11,6 +11,11 @@ import { ProfileComponent } from './Shared/components/dashboard/profile/profile.
 import { ProgrammeComponent } from './Shared/components/dashboard/programme/programme.component';
 import { ProgramCreateComponent } from './Shared/components/dashboard/program-create/program-create.component';
 import { CoachsComponent } from './Shared/components/dashboard/coachs/coachs.component';
+import { ChatComponent } from './Shared/components/dashboard/chat/chat.component';
+import { DashboardClientComponent } from './Shared/components/dashboard-client/dashboard-client.component';
+import { ProgramComponent } from './Shared/components/dashboard-client/program/program.component';
+import { BillingComponent } from './Shared/components/dashboard-client/billing/billing.component';
+import { ChatClientComponent } from './Shared/components/dashboard-client/chat-client/chat-client.component';
 
 const routes: Routes = [
   { path : "" , component : HomeComponent},
@@ -18,19 +23,34 @@ const routes: Routes = [
   { path: "auth/register" ,component : RegisterComponent,canActivate : [AuthentificationGuard]},
   { path: "explorer" ,component : ExploreComponent},
   {
-    path: "service",
-    redirectTo: "service/home",
+    path: "coach/service",
+    redirectTo: "coach/service/home",
     pathMatch: "full"
   },
   {
-    path: "service",component : DashboardComponent,
+    path: "coach/service",component : DashboardComponent,
     children: [
       { path: "home", component: DashboardHomeComponent },
-      { path: "members", component:CoachsComponent },
+      { path: "members", component: CoachsComponent },
       { path: "profile" , component: ProfileComponent},
       { path: "program" , component: ProgrammeComponent},
       { path: "program/new" , component: ProgramCreateComponent},
+      { path: "chat" , component: ChatComponent}
+    ]
+  },
 
+  {
+    path: "client/service",
+    redirectTo: "client/service/home",
+    pathMatch: "full"
+  },
+  {
+    path: "client/service",component : DashboardClientComponent,
+    children: [
+      { path: "home", component: DashboardHomeComponent },
+      { path: "program", component: ProgramComponent },
+      { path: "billing" , component:BillingComponent},
+      {path: "chat",component:ChatClientComponent}
     ]
   }
 ];

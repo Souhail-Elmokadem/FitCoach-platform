@@ -1,0 +1,11 @@
+.classlist{
+    padding: 3px;
+}
+.classlist:hover{
+    background: #c1c1c14a;
+    padding: 3px;
+}
+
+.hidden{
+    display: none;
+}

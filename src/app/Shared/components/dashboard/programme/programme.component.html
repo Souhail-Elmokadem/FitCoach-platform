@@ -70,54 +70,22 @@
                 </td>
                 <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap">
                   <div class="mt-2 avatar-group">
-                    <a href="javascript:;"
+                    
+
+                    <a href="javascript:;" *ngFor="let c of p.members"
                       class="relative z-20 inline-flex items-center justify-center w-6 h-6 text-xs text-white transition-all duration-200 border-2 border-white border-solid rounded-full ease-soft-in-out hover:z-30"
                       data-target="tooltip_trigger" data-placement="bottom">
-                      <img src="./assets/img/team-1.jpg" class="w-full rounded-full" alt="team1" />
+                      <img [src]="c.avatar" class="w-full rounded-full" alt="team1" />
                     </a>
-                    <div data-target="tooltip" class="hidden px-2 py-1 text-sm text-white bg-black rounded-lg"
+                    <div data-target="tooltip" *ngFor="let c of p.members" class="hidden px-2 py-1 text-sm text-white bg-black rounded-lg"
                       role="tooltip">
-                      {{p.nom}}
+                      {{c.firstName}}
                       <div
                         class="invisible absolute h-2 w-2 bg-inherit before:visible before:absolute before:h-2 before:w-2 before:rotate-45 before:bg-inherit before:content-['']"
                         data-popper-arrow></div>
                     </div>
-                    <a href="javascript:;"
-                      class="relative z-20 inline-flex items-center justify-center w-6 h-6 -ml-4 text-xs text-white transition-all duration-200 border-2 border-white border-solid rounded-full ease-soft-in-out hover:z-30"
-                      data-target="tooltip_trigger" data-placement="bottom">
-                      <img src="./assets/img/team-2.jpg" class="w-full rounded-full" alt="team2" />
-                    </a>
-                    <div data-target="tooltip" class="hidden px-2 py-1 text-sm text-white bg-black rounded-lg"
-                      role="tooltip">
-                      Romina Hadid
-                      <div
-                        class="invisible absolute h-2 w-2 bg-inherit before:visible before:absolute before:h-2 before:w-2 before:rotate-45 before:bg-inherit before:content-['']"
-                        data-popper-arrow></div>
-                    </div>
-                    <a href="javascript:;"
-                      class="relative z-20 inline-flex items-center justify-center w-6 h-6 -ml-4 text-xs text-white transition-all duration-200 border-2 border-white border-solid rounded-full ease-soft-in-out hover:z-30"
-                      data-target="tooltip_trigger" data-placement="bottom">
-                      <img src="./assets/img/team-3.jpg" class="w-full rounded-full" alt="team3" />
-                    </a>
-                    <div data-target="tooltip" class="hidden px-2 py-1 text-sm text-white bg-black rounded-lg"
-                      role="tooltip">
-                      Alexander Smith
-                      <div
-                        class="invisible absolute h-2 w-2 bg-inherit before:visible before:absolute before:h-2 before:w-2 before:rotate-45 before:bg-inherit before:content-['']"
-                        data-popper-arrow></div>
-                    </div>
-                    <a href="javascript:;"
-                      class="relative z-20 inline-flex items-center justify-center w-6 h-6 -ml-4 text-xs text-white transition-all duration-200 border-2 border-white border-solid rounded-full ease-soft-in-out hover:z-30"
-                      data-target="tooltip_trigger" data-placement="bottom">
-                      <img src="./assets/img/team-4.jpg" class="w-full rounded-full" alt="team4" />
-                    </a>
-                    <div data-target="tooltip" class="hidden px-2 py-1 text-sm text-white bg-black rounded-lg"
-                      role="tooltip">
-                      Jessica Doe
-                      <div
-                        class="invisible absolute h-2 w-2 bg-inherit before:visible before:absolute before:h-2 before:w-2 before:rotate-45 before:bg-inherit before:content-['']"
-                        data-popper-arrow></div>
-                    </div>
+
+
                   </div>
                 </td>
                 <td

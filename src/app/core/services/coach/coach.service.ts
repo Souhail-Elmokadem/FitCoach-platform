@@ -17,4 +17,5 @@ export class CoachService {
   public listCoachs(keyword:string,currentpage:number,size:number):Observable<Array<Coach>>{
       return this.http.get<Array<Coach>>(this.ApiUrl+`/coach/list?Search=${keyword}&page=${currentpage}&size=${size}`)
   }
+
 }

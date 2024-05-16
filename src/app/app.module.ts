@@ -18,6 +18,11 @@ import { ProfileComponent } from './Shared/components/dashboard/profile/profile.
 import { ProgrammeComponent } from './Shared/components/dashboard/programme/programme.component';
 import { ProgramCreateComponent } from './Shared/components/dashboard/program-create/program-create.component';
 import { CoachsComponent } from './Shared/components/dashboard/coachs/coachs.component';
+import { ChatComponent } from './Shared/components/dashboard/chat/chat.component';
+import { DashboardClientComponent } from './Shared/components/dashboard-client/dashboard-client.component';
+import { DashboardClientHomeComponent } from './Shared/components/dashboard-client/dashboard-client-home/dashboard-client-home.component';
+import { BillingComponent } from './Shared/components/dashboard-client/billing/billing.component';
+import { ChatClientComponent } from './Shared/components/dashboard-client/chat-client/chat-client.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +39,12 @@ import { CoachsComponent } from './Shared/components/dashboard/coachs/coachs.com
     ProfileComponent,
     ProgrammeComponent,
     ProgramCreateComponent,
+    ChatComponent,
+    DashboardClientComponent,
+    DashboardClientHomeComponent,
+    BillingComponent,
+    ChatClientComponent,
+    
     
    
   ],

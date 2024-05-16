@@ -10,6 +10,7 @@ import { AuthService } from '../../services/auth/auth.service';
 })
 export class RegisterComponent implements OnInit {
 
+
 formRegister!: FormGroup;
 constructor(private fb:FormBuilder,private authservice:AuthService,private router:Router){}
 ngOnInit(): void {
@@ -17,6 +18,7 @@ ngOnInit(): void {
     firstName : [''],
     lastName : [''],
     email : [''],
+    role : ['USER'] ,
     password : ['']
   })
 }

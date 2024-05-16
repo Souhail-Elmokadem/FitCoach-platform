@@ -24,7 +24,7 @@ export class ProgrammeComponent implements OnInit{
   }
 
   public getPrograms(){
-   this.programservice.getPrograms(this.keyword,  this.size,this.currentPage).subscribe({
+   this.programservice.getProgramsCoach(this.keyword,  this.size,this.currentPage).subscribe({
     next: (data: any) => {
       this.programs = data.items;
       this.totalItems = data.totalItems;
