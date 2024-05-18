@@ -1,6 +1,7 @@
 package com.fitcoach.fitcoach.web;
 
 
+import com.fitcoach.fitcoach.dao.entity.Coach;
 import com.fitcoach.fitcoach.dtos.ApiResponse;
 import com.fitcoach.fitcoach.dtos.CoachDTO;
 import com.fitcoach.fitcoach.services.CoachManager;
@@ -20,11 +21,17 @@ public class CoachControllerApi {
     private CoachManager coachManager;
     @GetMapping("/list")
     public ApiResponse<CoachDTO> list(@RequestParam(name = "Search", defaultValue = "") String kw,
-                                      @RequestParam(name = "size", defaultValue = "2") int size,
+                                      @RequestParam(name = "size", defaultValue = "6") int size,
                                       @RequestParam(name = "page", defaultValue = "0") int page){
         Page<CoachDTO> coachDTOPages = coachManager.ListCoach(kw,page,size);
 
         return new ApiResponse<>(coachDTOPages.getContent(),(int)coachDTOPages.getTotalElements());
+    }
+
+
+    @GetMapping("/{id}")
+    public CoachDTO coachwithid(@PathVariable("id") Long coachid){
+        return coachManager.getCoach(coachid);
     }
     @PostMapping("/create")
     public CoachDTO addCoach(@RequestParam("avatar") MultipartFile avatar,
@@ -36,6 +43,16 @@ public class CoachControllerApi {
         CoachDTO coachDTO = new CoachDTO(null,firstName,lastName,email,null,new Date(),new Date());
            return coachManager.AddCoach(avatar,coachDTO);
 //        return coachDTO;
+    }
+
+    @GetMapping("/coachbyclient")
+    public CoachDTO coachbyclient(@RequestParam("clientemail") String clientemail){
+       CoachDTO coachDTO= coachManager.getCoachByClient(clientemail);
+       if (coachDTO.equals(null)){
+           return new CoachDTO();
+       }else{
+           return coachDTO;
+       }
     }
 
 }

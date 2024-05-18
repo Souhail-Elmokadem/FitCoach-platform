@@ -3,9 +3,11 @@ package com.fitcoach.fitcoach.web;
 
 import com.fitcoach.fitcoach.dao.entity.Coach;
 import com.fitcoach.fitcoach.dtos.ApiResponse;
+import com.fitcoach.fitcoach.dtos.ChatDTO;
 import com.fitcoach.fitcoach.dtos.ClientDTO;
 import com.fitcoach.fitcoach.dtos.CoachDTO;
 import com.fitcoach.fitcoach.enums.Role;
+import com.fitcoach.fitcoach.services.ChatManager;
 import com.fitcoach.fitcoach.services.ClientManager;
 import com.fitcoach.fitcoach.services.CoachManager;
 import lombok.AllArgsConstructor;
@@ -26,6 +28,7 @@ public class ClientControllerApi {
     private ClientManager clientManager;
 
     private CoachManager coachManager;
+    private ChatManager chatManager;
 
 //    @PreAuthorize("hasAuthority('SCOPE_COACH') and hasAuthority('SCOPE_ADMIN')")
     @GetMapping("/list")
@@ -39,11 +42,15 @@ public class ClientControllerApi {
     public ApiResponse<ClientDTO> listClient(@RequestParam(name = "Search", defaultValue = "") String kw,
                                        @RequestParam(name = "size", defaultValue = "10") int size,
                                        @RequestParam(name = "page", defaultValue = "0") int page,
-                                       @RequestParam(name = "coachemail" ) String coachemail
-                                             ){
+                                       @RequestParam(name = "coachemail" ) String coachemail ){
         Page<ClientDTO> clientDTOs = clientManager.ListClientsByCoach(kw,size,page,coachemail);
         return new ApiResponse<>(clientDTOs.getContent(),(int)clientDTOs.getTotalElements());
     }
+
+
+
+
+
 
     @PostMapping("/create")
     public ClientDTO addClient(@RequestParam("avatar") MultipartFile avatar,

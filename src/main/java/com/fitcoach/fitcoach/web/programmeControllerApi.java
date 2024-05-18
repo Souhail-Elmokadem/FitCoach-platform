@@ -14,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.Console;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Date;
@@ -58,11 +59,17 @@ public class programmeControllerApi {
         ObjectMapper objectMapper = new ObjectMapper();
         Collection<ClientDTO> clients = objectMapper.readValue(clientsJson, new TypeReference<Collection<ClientDTO>>() {});
 
-        ProgrammeDTO programmeDTO = new ProgrammeDTO(null,nom,description,null,new Date(),new Date(),duree,seance,objectifs,null);
+        ProgrammeDTO programmeDTO = new ProgrammeDTO(null,nom,description,null,new Date(),new Date(),duree,seance,objectifs,null,clients);
 
        return programmeManger.AddProgramme(attachment,programmeDTO,coachemail,clients);
 //        return  new ProgrammeDTO();
 
     }
+    @GetMapping("/programClient/{clientemail}")
+    public ProgrammeDTO progClient(@PathVariable("clientemail") String clientemail){
+
+        return programmeManger.programClient(clientemail);
+    }
+
 
 }

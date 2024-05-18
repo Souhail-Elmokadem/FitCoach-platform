@@ -14,6 +14,10 @@ import java.util.*;
 public class Client extends Person {
 
 
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
+    private Collection<Chat> chats;
+
+
     @ManyToOne
     private Coach coach;
 

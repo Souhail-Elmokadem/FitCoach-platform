@@ -3,6 +3,7 @@ package com.fitcoach.fitcoach.services;
 import com.fitcoach.fitcoach.dao.Repository.ClientRepository;
 import com.fitcoach.fitcoach.dao.Repository.CoachRepository;
 import com.fitcoach.fitcoach.dao.Repository.ProgrammeRepository;
+import com.fitcoach.fitcoach.dao.entity.Client;
 import com.fitcoach.fitcoach.dao.entity.Coach;
 import com.fitcoach.fitcoach.dao.entity.Programme;
 import com.fitcoach.fitcoach.dtos.CoachDTO;
@@ -48,6 +49,10 @@ public class CoachServiceImpl implements CoachManager{
     }
 
     @Override
+    public CoachDTO getCoach(Long coachid) {
+        return coachMapper.coachToDTO(coachRepository.findById(coachid).get());
+    }
+    @Override
     public CoachDTO AddCoach(MultipartFile avatar, CoachDTO coachDTO) throws IOException {
         Coach coach = coachMapper.DTOToCoach(coachDTO);
 
@@ -79,5 +84,12 @@ public class CoachServiceImpl implements CoachManager{
             return  false;
         }
 
+    }
+
+    @Override
+    public CoachDTO getCoachByClient(String clientemail) {
+        Client client = clientRepository.findByEmail(clientemail);
+        Coach coach = client.getCoach();
+        return coachMapper.coachToDTO(coach);
     }
 }

@@ -19,4 +19,6 @@ public interface ProgrammeManger {
     boolean DeleteProgramme(Long id);
 
     Page<ProgrammeDTO> listProgrammesCoach(String kw, int size, int page, String coachemail);
+
+    ProgrammeDTO programClient(String clientemail);
 }

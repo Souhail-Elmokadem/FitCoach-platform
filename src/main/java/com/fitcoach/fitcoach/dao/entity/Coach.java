@@ -27,7 +27,8 @@ public class Coach extends Person{
     @OneToMany(mappedBy = "coach")
     private List<Review> comments;
 
-
+    @OneToMany(mappedBy = "coach", cascade = CascadeType.ALL)
+    private Collection<Chat> chats;
 
 
 

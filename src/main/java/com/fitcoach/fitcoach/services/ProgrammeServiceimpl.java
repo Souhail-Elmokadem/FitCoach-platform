@@ -116,9 +116,19 @@ public class ProgrammeServiceimpl implements ProgrammeManger{
                 .map(p -> {
                     ProgrammeDTO prog =programmeMapper.map(p);
                     CoachDTO coachDTO = coachMapper.coachToDTO(p.getCoach());
+                    Collection<Client> clients = p.getClients();
                     prog.setCoach(coachDTO);
+                    prog.setMembers(clients.stream().map(clientMapper::map).collect(Collectors.toList()));
                     return prog;
                 }).collect(Collectors.toList());
         return new PageImpl<>(programmeDTOS,PageRequest.of(page,size),programmeDTOS.size());
+    }
+
+    @Override
+    public ProgrammeDTO programClient(String clientemail) {
+        Programme programme = clientRepository.findByEmail(clientemail).getProgramme();
+        ProgrammeDTO programmeDTO = programmeMapper.map(programme);
+        programmeDTO.setCoach(coachMapper.coachToDTO(programme.getCoach()));
+        return programmeDTO;
     }
 }

@@ -1,16 +1,20 @@
 package com.fitcoach.fitcoach.services;
 
+import com.fitcoach.fitcoach.dao.Repository.ChatRepository;
 import com.fitcoach.fitcoach.dao.Repository.ClientRepository;
 import com.fitcoach.fitcoach.dao.Repository.CoachRepository;
 import com.fitcoach.fitcoach.dao.Repository.ProgrammeRepository;
+import com.fitcoach.fitcoach.dao.entity.Chat;
 import com.fitcoach.fitcoach.dao.entity.Client;
 import com.fitcoach.fitcoach.dao.entity.Coach;
+import com.fitcoach.fitcoach.dtos.ChatDTO;
 import com.fitcoach.fitcoach.dtos.ClientDTO;
 import com.fitcoach.fitcoach.dtos.CoachDTO;
 
 //import com.fitcoach.fitcoach.mappers.ClientMapper;
 import com.fitcoach.fitcoach.mappers.ClientMapper;
 import com.fitcoach.fitcoach.mappers.CoachMapper;
+import com.fitcoach.fitcoach.mappers.ProgrammeMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -21,10 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -39,6 +40,10 @@ public class ClientSeriviceImpl implements ClientManager {
     private CoachMapper coachMapper;
     private ClientMapper clientMapper;
     private CoachManager coachManager;
+
+    private ChatRepository chatRepository;
+    private  ChatManager chatManager;
+    ProgrammeMapper programmeMapper;
 
 
     @Override
@@ -81,6 +86,7 @@ public class ClientSeriviceImpl implements ClientManager {
         }
     }
 
+
     @Override
     public Page<ClientDTO> ListClientsByCoach(String kw, int size, int page, String coachemail) {
         Coach coach = coachRepository.findByEmail(coachemail);
@@ -91,7 +97,14 @@ public class ClientSeriviceImpl implements ClientManager {
                        return c.getCoach().equals(coach);
                     }
                     return false;
-                }).map(clientMapper::map).collect(Collectors.toList());
+                }).map(c->{
+                  ClientDTO clientDTO =  clientMapper.map(c);
+                  if(c.getProgramme()!=null){
+                      clientDTO.setProgramme(programmeMapper.map(c.getProgramme()));
+                  }
+
+                  return clientDTO;
+                }).collect(Collectors.toList());
 
         return new PageImpl<>(clientDTOS,PageRequest.of(page,size),clientDTOS.size());
     }
@@ -107,6 +120,11 @@ public class ClientSeriviceImpl implements ClientManager {
         //coach.setMembers(List.of(client));
         coachRepository.save(coach);
 
+
+        Chat chat = new Chat();
+        chat.setClient(client);
+        chat.setCoach(coach);
+        chatRepository.save(chat);
         return clientMapper.map(client);
     }
     @Override

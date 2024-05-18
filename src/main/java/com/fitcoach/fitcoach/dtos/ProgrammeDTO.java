@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Collection;
 import java.util.Date;
 
 
@@ -33,4 +34,6 @@ public class ProgrammeDTO {
 
 
     private CoachDTO coach;
+
+    private Collection<ClientDTO> members;
 }

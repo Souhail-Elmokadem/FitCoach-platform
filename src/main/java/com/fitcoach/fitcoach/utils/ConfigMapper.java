@@ -43,4 +43,11 @@ public class ConfigMapper {
     }
 
 
+    @Bean
+    public ChatMapper chatMapper(){
+        return new ChatMapperImpl();
+    }
+
+    @Bean
+    public Messagemapper messagemapper() { return new MessageMapperImpl(); }
 }

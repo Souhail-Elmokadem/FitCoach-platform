@@ -14,10 +14,13 @@ public interface CoachManager {
 
     CoachDTO getCoach(String email);
 
+    CoachDTO getCoach(Long coachid);
+
     CoachDTO AddCoach(MultipartFile avatar, CoachDTO coachDTO) throws IOException;
 
     CoachDTO updateCoach(Long id, CoachDTO coachDTO);
     boolean DeleteCoach(Long id);
 
 
+    CoachDTO getCoachByClient(String clientemail);
 }
