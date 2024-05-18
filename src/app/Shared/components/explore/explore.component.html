@@ -18,8 +18,9 @@
    
   
     <div class="w-80 mx-8 my-4" *ngFor="let coach of coaches">
-      <div
-        class="container mx-auto bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transform hover:scale-105 duration-500">
+      <div 
+      (click)="handleclick(coach)"
+        class="cursor-pointer container mx-auto bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transform hover:scale-105 duration-500">
         <img class="w-full max-h-200 object-cover object-top" src="{{coach.avatar}}" width="100" alt=""
           style="max-height: 200px;" />
         <div class="text-center relative py-14">

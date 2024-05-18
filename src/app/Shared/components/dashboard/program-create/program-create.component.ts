@@ -46,7 +46,7 @@ export class ProgramCreateComponent implements OnInit {
       this.programservice.addProgram(this.formProgram, this.attachment,this.clientAffected).subscribe({
       next: data => { 
         console.log(data)
-        this.router.navigateByUrl('service/program')
+        this.router.navigateByUrl('coach/service/program')
         this.formProgram.reset();
        }
     })

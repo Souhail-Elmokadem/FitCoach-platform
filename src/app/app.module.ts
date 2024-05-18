@@ -23,6 +23,9 @@ import { DashboardClientComponent } from './Shared/components/dashboard-client/d
 import { DashboardClientHomeComponent } from './Shared/components/dashboard-client/dashboard-client-home/dashboard-client-home.component';
 import { BillingComponent } from './Shared/components/dashboard-client/billing/billing.component';
 import { ChatClientComponent } from './Shared/components/dashboard-client/chat-client/chat-client.component';
+import { UserMenuComponent } from './core/navbar/user-menu/user-menu.component';
+import { AuthentificationGuard } from './core/gards/authentification.guard';
+import { CoachPageComponent } from './Shared/components/coach-page/coach-page.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +47,8 @@ import { ChatClientComponent } from './Shared/components/dashboard-client/chat-c
     DashboardClientHomeComponent,
     BillingComponent,
     ChatClientComponent,
+    UserMenuComponent,
+    CoachPageComponent,
     
     
    
@@ -56,7 +61,7 @@ import { ChatClientComponent } from './Shared/components/dashboard-client/chat-c
     HttpClientModule
   ],
   exports: [CustomDatePipe],
-  providers: [{
+  providers: [AuthentificationGuard,{
     provide: HTTP_INTERCEPTORS, // Use the HTTP_INTERCEPTORS token
     useClass: AppHttpInterceptor, // Use the appHttpInterceptor class
     multi : true // Specify that the interceptor is multi-provider

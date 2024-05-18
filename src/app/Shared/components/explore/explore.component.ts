@@ -2,6 +2,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { Coach } from '../../models/Coach';
 import { CoachService } from '../../../core/services/coach/coach.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-explore',
@@ -9,6 +10,7 @@ import { CoachService } from '../../../core/services/coach/coach.service';
   styleUrl: './explore.component.css'
 })
 export class ExploreComponent implements OnInit {
+
   coaches:Coach[] = [];
   keyword:string="";
   currentPage:number=0;
@@ -17,7 +19,7 @@ export class ExploreComponent implements OnInit {
 
  
  
-  constructor(private coachservice:CoachService){
+  constructor(private coachservice:CoachService,private router:Router){
 this.getCoaches();
   }
   ngOnInit(): void {
@@ -50,5 +52,9 @@ this.getCoaches();
       this.getCoaches();
     }
   }
+
+  handleclick(coach: Coach) {
+    this.router.navigateByUrl(`explorer/${coach.id}/${coach.firstName.replace(' ','')}-${coach.lastName.replace(' ','')}`)
+    }
 
 }

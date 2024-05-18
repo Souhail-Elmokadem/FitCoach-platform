@@ -16,19 +16,23 @@ import { DashboardClientComponent } from './Shared/components/dashboard-client/d
 import { ProgramComponent } from './Shared/components/dashboard-client/program/program.component';
 import { BillingComponent } from './Shared/components/dashboard-client/billing/billing.component';
 import { ChatClientComponent } from './Shared/components/dashboard-client/chat-client/chat-client.component';
+import { authcoachGuard } from './core/gards/authorization-coach/authcoach.guard';
+import { authclientguard } from './core/gards/authorization-client/authclient.guard';
+import { CoachPageComponent } from './Shared/components/coach-page/coach-page.component';
 
 const routes: Routes = [
   { path : "" , component : HomeComponent},
   { path: "auth/login" ,component : LoginComponent,canActivate : [AuthentificationGuard]},
   { path: "auth/register" ,component : RegisterComponent,canActivate : [AuthentificationGuard]},
-  { path: "explorer" ,component : ExploreComponent},
+  { path: "explorer" ,component : ExploreComponent ,canActivate:[authclientguard]},
+  { path: "explorer/:id/:name",component:CoachPageComponent ,canActivate:[authclientguard]},
   {
     path: "coach/service",
     redirectTo: "coach/service/home",
     pathMatch: "full"
   },
   {
-    path: "coach/service",component : DashboardComponent,
+    path: "coach/service",component : DashboardComponent,canActivate:[authcoachGuard],
     children: [
       { path: "home", component: DashboardHomeComponent },
       { path: "members", component: CoachsComponent },
@@ -45,7 +49,7 @@ const routes: Routes = [
     pathMatch: "full"
   },
   {
-    path: "client/service",component : DashboardClientComponent,
+    path: "client/service",component : DashboardClientComponent,canActivate:[authclientguard],
     children: [
       { path: "home", component: DashboardHomeComponent },
       { path: "program", component: ProgramComponent },
@@ -60,3 +64,6 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+
+
+

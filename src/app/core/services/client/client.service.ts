@@ -12,6 +12,7 @@ import { AuthService } from '../auth/auth.service';
 })
 export class ClientService {
   
+  
   constructor(private http:HttpClient,private authservice:AuthService){ }
 
   apiUrl = environment.baseUrl
@@ -25,10 +26,15 @@ export class ClientService {
   public listClientCoach(keyword:string,currentpage:number,size:number):Observable<Array<Client>>{
     return this.http.get<Array<Client>>(this.apiUrl+`/client/listClientByCoach?Search=${keyword}&page=${currentpage}&size=${size}&coachemail=${this.authservice.sessiondata.username}`)
 }
-    // enroll(email:string) {
-    //   const formdata = new FormData();
-    //   formdata.append('clientemail',email)
-    //   //formdata.append('coachemail','coach')
-    //     return this.http.post(this.apiUrl+'/client/enroll',)
-    //   }
+  public listClientbyCoach(size:number,coach:Coach):Observable<Array<Client>>{
+    return this.http.get<Array<Client>>(this.apiUrl+`/client/listClientByCoach?page=0&coachemail=${coach.email}`)
+  }
+  public enroll(coach:Coach){
+    const formdata = new FormData();
+    formdata.append("clientemail",this.authservice.sessiondata.username)
+    formdata.append("coachemail",coach.email)
+    return this.http.post(this.apiUrl+'/client/enroll',formdata)
+  }
+    
+
 }

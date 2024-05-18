@@ -12,9 +12,9 @@
    <button class="btn" routerLink="auth/login" *ngIf="!authservice.IsLogged()">Login</button>
    <button class="btn-sec" routerLink="auth/register" *ngIf="!authservice.IsLogged()">Register</button>
    <ng-container *ngIf="authservice.IsLogged()">
-   <button class="text-white mr-5" >{{authservice.sessiondata.username}}</button>
-   <button class="text-white mr-5" routerLink="/client/service">Dashboard</button>
-   <button class="text-lime-400" routerLink="/" (click)="this.authservice.Logout()">Logout</button>
+  
+   <app-user-menu></app-user-menu>
+   
    </ng-container>
   </div>
   <div class="btn-container" *ngIf="!isNavbarVisible()">

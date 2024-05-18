@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { AfterContentChecked, AfterViewChecked, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -7,11 +7,14 @@ import { Router } from '@angular/router';
   styleUrl: './dashboard.component.css',
   encapsulation: ViewEncapsulation.None
 })
-export class DashboardComponent implements OnInit{
+export class DashboardComponent implements OnInit,AfterViewChecked{
 
   parentKw: string="";
   constructor(public route:Router){
 
+  }
+  ngAfterViewChecked(): void {
+    
   }
   ngOnInit(): void {
   }

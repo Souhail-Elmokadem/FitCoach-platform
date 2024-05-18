@@ -1,3 +1,5 @@
+import { Program } from "./Program";
+
 export interface Client{
     firstName:string;
     lastName:string;
@@ -5,4 +7,5 @@ export interface Client{
     role:string;
     avatar:string;
     createdAt:string;
+    programme:Program;
 }
