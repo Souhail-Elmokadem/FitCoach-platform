@@ -33,6 +33,8 @@ public class Person implements UserDetails {
 
     private String email;
 
+    private String profile;
+
     private String avatar;
 
     private Date createdAt;

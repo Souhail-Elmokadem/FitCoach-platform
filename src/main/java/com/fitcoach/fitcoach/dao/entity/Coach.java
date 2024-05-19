@@ -37,8 +37,8 @@ public class Coach extends Person{
 
     }
 
-    public Coach(Long id, String firstName, String lastName, String email, String avatar, Date date, Date date1, String password, Role role) {
-        super(id,firstName,lastName,email,avatar,date,date1,password,role);
+    public Coach(Long id, String firstName, String lastName, String email,String profile, String avatar, Date date, Date date1, String password, Role role) {
+        super(id,firstName,lastName,email,profile,avatar,date,date1,password,role);
         this.members=new ArrayList<>();
         this.comments = new ArrayList<>();
         this.programmes= new ArrayList<>();

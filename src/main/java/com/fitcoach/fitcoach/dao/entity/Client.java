@@ -30,8 +30,8 @@ public class Client extends Person {
     @OneToMany(mappedBy = "client")
     Collection<Review> reviews;
 
-    public Client(Long id, String firstName, String lastName, String email, String avatar, Date date, Date date1, String password, Role role) {
-        super(id,firstName,lastName,email,avatar,date,date1,password,role);
+    public Client(Long id, String firstName, String lastName, String email,String profile, String avatar, Date date, Date date1, String password, Role role) {
+        super(id,firstName,lastName,email,profile,avatar,date,date1,password,role);
         this.coach=null;
         this.programme=null;
         this.paiementsHistory=new ArrayList<>();

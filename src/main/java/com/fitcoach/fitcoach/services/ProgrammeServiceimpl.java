@@ -22,10 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -89,11 +86,27 @@ public class ProgrammeServiceimpl implements ProgrammeManger{
     }
 
     @Override
-    public ProgrammeDTO updateProgramme(Long id, ProgrammeDTO programmeDTO) {
-        Programme p = programmeMapper.map(programmeDTO);
-        p.setId(id);
-        return programmeMapper.map(programmeRepository.save(p));
+    public ProgrammeDTO updateProgramme(Long id, ProgrammeDTO programmeDTO, Collection<ClientDTO> clientDTOS) {
+        Programme programme = programmeRepository.findById(id).orElseThrow(()->new RuntimeException("Not Found"));
+        clientDTOS.stream().forEach(cl->{
+            Client client = clientRepository.findByEmail(cl.getEmail());
+            client.setProgramme(programme);
+            clientRepository.save(client);
+        });
+        programme.setId(id);
+        programme.setClients(clientDTOS.stream().map(clientMapper::map).collect(Collectors.toList()));
+        programme.setNom(programmeDTO.getNom());
+        programme.setDescription(programmeDTO.getDescription());
+        programme.setUpdateAt(new Date());
+        programme.setObjectifs(programmeDTO.getObjectifs());
+        programme.setDuree(programmeDTO.getDuree());
+        programme.setSeance(programmeDTO.getSeance());
+
+
+        return programmeMapper.map(programmeRepository.save(programme));
     }
+
+
 
     @Override
     public boolean DeleteProgramme(Long id) {
@@ -130,5 +143,33 @@ public class ProgrammeServiceimpl implements ProgrammeManger{
         ProgrammeDTO programmeDTO = programmeMapper.map(programme);
         programmeDTO.setCoach(coachMapper.coachToDTO(programme.getCoach()));
         return programmeDTO;
+    }
+
+    @Override
+    public ProgrammeDTO getProgramById(Long id) {
+       Programme programme = programmeRepository.findById(id).orElseThrow(()->new RuntimeException("Not Found Program"));
+        ProgrammeDTO programmeDTO =  programmeMapper.map(programme);
+        programmeDTO.setCoach(coachMapper.coachToDTO(programme.getCoach()));
+        programmeDTO.setMembers(programme.getClients().stream().map(clientMapper::map).collect(Collectors.toList()));
+        return programmeDTO;
+    }
+
+    @Override
+    public Boolean deleteProgram(Long id) {
+       Programme programme = programmeRepository.findById(id).orElseThrow(()->new RuntimeException("Not found Program"));
+       programme.getClients().stream().forEach(c->{
+           c.setProgramme(null);
+           clientRepository.save(c);
+       });
+       programme.getCoach().setProgrammes(null);
+       try {
+           programmeRepository.deleteById(id);
+           return true;
+       }catch (Exception e){
+           System.out.println(e.getMessage());
+           return false;
+       }
+
+
     }
 }

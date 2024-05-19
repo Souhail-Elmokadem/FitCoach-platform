@@ -150,11 +150,11 @@ public class SecurityController {
 
         if (request.getRole().equals(Role.COACH)) {
             coachRepository.save(
-                    new Coach(user.getId(),user.getFirstName(),user.getLastName(),user.getEmail(),user.getAvatar(),new Date(),new Date(),user.getPassword(),user.getRole()));
+                    new Coach(user.getId(),user.getFirstName(),user.getLastName(),user.getEmail(),"",user.getAvatar(),new Date(),new Date(),user.getPassword(),user.getRole()));
 
         }else if (request.getRole().equals(Role.USER)){
             clientRepository.save(
-                    new Client(user.getId(),user.getFirstName(),user.getLastName(),user.getEmail(),user.getAvatar(),new Date(),new Date(),user.getPassword(),user.getRole()));
+                    new Client(user.getId(),user.getFirstName(),user.getLastName(),user.getEmail(),"",user.getAvatar(),new Date(),new Date(),user.getPassword(),user.getRole()));
         }
         Instant instant = Instant.now();
         jwtClaimsSet = JwtClaimsSet.builder()

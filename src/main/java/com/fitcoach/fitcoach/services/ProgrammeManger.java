@@ -14,11 +14,15 @@ public interface ProgrammeManger {
     Page<ProgrammeDTO> listProgrammes(String kw, int size, int  page);
     ProgrammeDTO AddProgramme(MultipartFile attachment, ProgrammeDTO programmeDTO,String coachemail,Collection<ClientDTO> clients) throws IOException;
 
-    ProgrammeDTO updateProgramme(Long id, ProgrammeDTO programmeDTO);
+    ProgrammeDTO updateProgramme(Long id, ProgrammeDTO programmeDTO,Collection<ClientDTO> clientDTOS);
+
 
     boolean DeleteProgramme(Long id);
 
     Page<ProgrammeDTO> listProgrammesCoach(String kw, int size, int page, String coachemail);
 
     ProgrammeDTO programClient(String clientemail);
+    ProgrammeDTO getProgramById(Long id);
+
+    Boolean deleteProgram(Long id);
 }
