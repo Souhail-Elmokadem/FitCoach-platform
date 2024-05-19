@@ -82,14 +82,21 @@ export class ProgramCreateComponent implements OnInit {
         error:err=>console.log(err)
       })
   }
-  handleAffect(client:Client) {
-     console.log(client)
-     this.kayword=''
-     this.clientAffected.push(client)
-  }
+  handleAffect(clientparam:Client) {
+    console.log(clientparam)
+    this.kayword=''
+    const exists = this.clientAffected.some(client => client.id === clientparam.id);
+    if(!exists){
+     this.clientAffected.push(clientparam)
+    }
+    
+ }
   handlesearch(event: any) {
     this.getListClients();
     
+  }
+  removeClientAffected(clientId: number): void {
+    this.clientAffected = this.clientAffected.filter(client => client.id !== clientId);
   }
 
 }

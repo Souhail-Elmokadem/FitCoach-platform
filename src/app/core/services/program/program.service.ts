@@ -12,6 +12,7 @@ import { Client } from '../../../Shared/models/Client';
 })
 export class ProgramService {
  
+ 
 
   
   constructor(private http:HttpClient,private authservice:AuthService) { }
@@ -21,6 +22,9 @@ export class ProgramService {
   public getPrograms(keyword:string,size:number,currentpage:number):Observable<Array<Program>>{
     return this.http.get<Array<Program>>(this.ApiUrl+`/program/list?Search=${keyword}&page=${currentpage}&size=${size}`)
 
+  }
+  public getProgramById(id:number):Observable<Program>{
+    return this.http.get<Program>(this.ApiUrl+"/program/"+id);
   }
   public getProgramCLient():Observable<Program>{
     return this.http.get<Program>(this.ApiUrl+'/program/programClient/'+this.authservice.sessiondata.username)
@@ -41,6 +45,23 @@ export class ProgramService {
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'multipart/form-data');
     return this.http.post(this.ApiUrl+'/program/create',formData,{headers:headers});
+  }
+  public updateProgram(idprog: number, formProgram: FormGroup<any>, clientAffected: Client[]) {
+    const formdata = new FormData();
+    formdata.append('id', idprog.toString());
+    formdata.append('nom', formProgram.value.name);
+    formdata.append('description', formProgram.value.description);
+    formdata.append('duree', formProgram.value.duree);
+    formdata.append('seance', formProgram.value.seance);
+    formdata.append('objectifs', formProgram.value.objectifs);
+    formdata.append('clients',JSON.stringify(clientAffected));
+    return this.http.put(this.ApiUrl+"/program/edit",formdata)
+  }
+
+  public deleteProgram(id:number){
+    
+
+    return this.http.delete(this.ApiUrl+'/program/'+id)
   }
   // addProgramDet(program: FormGroup<any>) {
   //   const formData: FormData = new FormData();

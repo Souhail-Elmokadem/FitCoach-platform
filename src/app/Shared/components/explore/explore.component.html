@@ -1,5 +1,24 @@
+<div class='max-w-md mx-auto relative top-10' style="margin-bottom: 100px;">
+  <div class="relative flex items-center w-full h-12 rounded-lg focus-within:shadow-lg bg-[#212325] hover:bg-[#414343] overflow-hidden">
+      <div class="grid place-items-center h-full w-12 text-gray-300">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+      </div>
+
+      <input
+      class="peer h-full w-full bg-[#212325] hover:bg-[#414343]  outline-none text-sm text-gray-50 pr-2"
+      type="text"
+      id="search"
+      [(ngModel)]="keyword"
+      (ngModelChange)="handleChangeKeyword()"
+      placeholder="Search something.." /> 
+  </div>
+</div>
 <div class="min-h-screen mt-6  flex justify-center items-center body">
-   <div class="area">
+  
+  
+  <div class="area">
       <ul class="circles">
     <li></li>
     <li></li>
@@ -12,11 +31,13 @@
     <li></li>
     <li></li>
   </ul>
-    </div>
+    </div>  
+   
   <div class="flex flex-wrap justify-center ">
     <!-- First Item -->
-   
   
+  
+
     <div class="w-80 mx-8 my-4" *ngFor="let coach of coaches">
       <div 
       (click)="handleclick(coach)"

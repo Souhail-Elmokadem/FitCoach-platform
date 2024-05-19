@@ -1,4 +1,4 @@
-<h6 class=" font-bold text-gray-500 capitalize absolute left-14 text-lg">Create Program</h6>
+<h6 class=" font-bold text-gray-500 capitalize absolute left-14 text-lg">Edit Program</h6>
 
 <div class="formbold-main-wrapper">
 
@@ -106,11 +106,11 @@
            
           </div>
 
-          <div class="absolute flex flex-col text-gray-700 bg-white shadow-md w-96 rounded-xl bg-clip-border"
+          <div style="z-index: 22;" class="absolute flex flex-col text-gray-700 bg-white shadow-md w-96 rounded-xl bg-clip-border"
             style="position: absolute" [ngClass]="{'hidden':kayword==''}" >
             <nav class="flex min-w-[240px] flex-col gap-1 p-2 font-sans text-base font-normal text-blue-gray-700"
               style="margin: 10px;">
-              <div role="button" *ngFor="let c of clientlist"
+              <div role="button" *ngFor="let c of clientlist" 
                 class="flex classlist items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
                 >
 
@@ -124,7 +124,7 @@
                     {{c.firstName}} {{c.lastName}}
                   </h6>
                   <p class="block font-sans text-sm antialiased font-normal leading-normal text-gray-700">
-                    Software Engineer Material Tailwind
+                    {{c.email}}
                   </p>
                 </div>
               </div>
@@ -133,7 +133,7 @@
             </nav>
           </div>
         </div>
-        <p style="margin-top: 100px"> Members Affected :</p>
+       <p style="margin-top: 100px"> Members Affected :</p>
         <div  role="button" style="margin-top: 5px;margin-bottom: 20px;float: right;" *ngFor="let c of clientAffected"
                 class="flex -z-10 classlist items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
                 >
@@ -160,7 +160,7 @@
 
           <div>
 
-            <button class="formbold-confirm-btn active" type="submit">
+            <button (click)="handleSubmit()" class="formbold-confirm-btn active" type="submit">
               <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="11" cy="11" r="10.5" fill="white" stroke="#DDE3EC" />
                 <g clip-path="url(#clip0_1667_1314)">
@@ -228,6 +228,10 @@
             </clipPath>
           </defs>
         </svg>
+      </button>
+      <button class="formbold-btn bg-red-900 float-end" style="background-color: red;" (click)="hancleclickDelete()" *ngIf="currentIndex==0">
+        Delete
+        
       </button>
     </div>
   </div>

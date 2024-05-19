@@ -15,6 +15,7 @@ export class ExploreComponent implements OnInit {
   keyword:string="";
   currentPage:number=0;
   size:number=6;
+  totalElement!:number;
   private isLoading: boolean = false;
 
  
@@ -35,17 +36,36 @@ this.getCoaches();
   
     this.isLoading = true; // Marquer le chargement comme en cours
     this.coachservice.listCoachs(this.keyword, this.currentPage, this.size)
-      .pipe(
-        map((data: any) => data.items)
-      )
       .subscribe({
-        next: (res: Coach[]) => {
-          this.coaches = [...this.coaches, ...res];
+        next: (res: any) => {
+          this.coaches = [...this.coaches, ...res.items];
           this.isLoading = false; // Marquer le chargement comme terminé
-          this.currentPage++; // Incrémenter currentPage ici pour la prochaine requête
+          this.totalElement=res.totalItems;
+          if((this.totalElement/this.size)>this.currentPage){
+            this.currentPage++;
+          }
+           // Incrémenter currentPage ici pour la prochaine requête
         }
       });
   }
+  handleChangeKeyword() {
+   this.coaches=[]
+    if (this.isLoading) {
+      return;
+    }
+  
+    this.isLoading = true; // Marquer le chargement comme en cours
+    this.coachservice.listCoachs(this.keyword, this.currentPage, this.size)
+      .subscribe({
+        next: (res: any) => {
+          this.coaches = [...this.coaches, ...res.items];
+          this.isLoading = false; // Marquer le chargement comme terminé
+        }
+      });
+ }
+ 
+
+
   @HostListener('window:scroll', ['$event'])
   onScroll() {
     if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {

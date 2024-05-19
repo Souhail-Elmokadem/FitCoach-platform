@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
@@ -15,5 +15,6 @@ export class UserMenuComponent implements OnInit {
   ngOnInit(): void {
     
   }
+  
 
 }

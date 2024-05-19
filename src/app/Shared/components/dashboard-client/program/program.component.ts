@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ClientService } from '../../../../core/services/client/client.service';
 import { ProgramService } from '../../../../core/services/program/program.service';
 import { Program } from '../../../models/Program';
 
@@ -10,6 +9,7 @@ import { Program } from '../../../models/Program';
 })
 export class ProgramComponent implements OnInit {
   program!:Program;
+  datastatus:boolean=false;
   constructor(private programservice:ProgramService){ }
   
   ngOnInit(): void {
@@ -20,6 +20,7 @@ export class ProgramComponent implements OnInit {
       {
       next: data=>{
         this.program=data;
+        this.datastatus=true;
       },
       error:err=>console.log(err)
     }

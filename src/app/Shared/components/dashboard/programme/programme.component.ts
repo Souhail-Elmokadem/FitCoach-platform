@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Program } from '../../../models/Program';
 import { ProgramService } from '../../../../core/services/program/program.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-programme',
@@ -10,13 +11,14 @@ import { ProgramService } from '../../../../core/services/program/program.servic
 export class ProgrammeComponent implements OnInit{
 
 
+
   currentIndex:number=0;
   programs:Array<Program>=[];
   keyword: string = "";
   currentPage: number = 0;
   size: number = 3;
   totalItems: number = 0;
-  constructor(private programservice:ProgramService){
+  constructor(private programservice:ProgramService,private router:Router){
   }
   ngOnInit(): void {
           this.getPrograms();
@@ -54,5 +56,9 @@ export class ProgrammeComponent implements OnInit{
     console.log(this.keyword);
     this.getPrograms(); // Update the clients based on the new keyword
   }
+
+  handleEdit(p:Program) {
+    this.router.navigateByUrl(`coach/service/program/edit/${p.id}/${p.nom.replace(' ','')}`)
+    }
 
 }

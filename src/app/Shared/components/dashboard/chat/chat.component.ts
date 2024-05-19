@@ -37,7 +37,6 @@ export class ChatComponent implements OnInit,AfterViewChecked{
 
   ngOnInit(): void {
       this.getClients();
-      this.setupAutoRefresh()
   }
 
   getClients(): void {

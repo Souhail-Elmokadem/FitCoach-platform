@@ -29,7 +29,6 @@ export class ChatClientComponent implements OnInit {
 
   ngOnInit(): void {
     this.getReply();
-    this.setupAutoRefresh()
     
   }
 

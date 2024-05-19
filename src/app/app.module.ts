@@ -26,6 +26,11 @@ import { ChatClientComponent } from './Shared/components/dashboard-client/chat-c
 import { UserMenuComponent } from './core/navbar/user-menu/user-menu.component';
 import { AuthentificationGuard } from './core/gards/authentification.guard';
 import { CoachPageComponent } from './Shared/components/coach-page/coach-page.component';
+import { UpdateComponent } from './Shared/components/dashboard/programme/update/update.component';
+import { ProgramComponent } from './Shared/components/dashboard-client/program/program.component';
+import { ProfileClientComponent } from './Shared/components/dashboard-client/profile-client/profile-client.component';
+import { EditProfileClientComponent } from './Shared/components/dashboard-client/profile-client/edit-profile-client/edit-profile-client.component';
+import { EditProfileCoachComponent } from './Shared/components/dashboard/profile/edit-profile-coach/edit-profile-coach.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +47,7 @@ import { CoachPageComponent } from './Shared/components/coach-page/coach-page.co
     ProfileComponent,
     ProgrammeComponent,
     ProgramCreateComponent,
+    ProgramComponent,
     ChatComponent,
     DashboardClientComponent,
     DashboardClientHomeComponent,
@@ -49,6 +55,11 @@ import { CoachPageComponent } from './Shared/components/coach-page/coach-page.co
     ChatClientComponent,
     UserMenuComponent,
     CoachPageComponent,
+    UpdateComponent,
+    ProfileClientComponent,
+    EditProfileClientComponent,
+    EditProfileCoachComponent,
+    
     
     
    

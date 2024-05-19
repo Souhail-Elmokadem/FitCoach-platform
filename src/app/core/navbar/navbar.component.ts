@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AuthentificationGuard } from '../gards/authentification.guard';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth/auth.service';
@@ -8,6 +8,9 @@ import { AuthService } from '../services/auth/auth.service';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent implements OnInit{
+  
+  
+  @ViewChild('targetSection') targetSection!: ElementRef;
 
   constructor(private router:Router,public authservice:AuthService){}
   
@@ -18,6 +21,11 @@ export class NavbarComponent implements OnInit{
   }
   hideNavbarService():boolean{
     return !this.router.url.includes("service");
+  }
+  scrollToSection(): void {
+    if (this.targetSection) {
+      this.targetSection.nativeElement.scrollIntoView({ behavior: 'smooth' });
+    }
   }
  
 

@@ -19,6 +19,8 @@ import { ChatClientComponent } from './Shared/components/dashboard-client/chat-c
 import { authcoachGuard } from './core/gards/authorization-coach/authcoach.guard';
 import { authclientguard } from './core/gards/authorization-client/authclient.guard';
 import { CoachPageComponent } from './Shared/components/coach-page/coach-page.component';
+import { UpdateComponent } from './Shared/components/dashboard/programme/update/update.component';
+import { ProfileClientComponent } from './Shared/components/dashboard-client/profile-client/profile-client.component';
 
 const routes: Routes = [
   { path : "" , component : HomeComponent},
@@ -39,7 +41,9 @@ const routes: Routes = [
       { path: "profile" , component: ProfileComponent},
       { path: "program" , component: ProgrammeComponent},
       { path: "program/new" , component: ProgramCreateComponent},
-      { path: "chat" , component: ChatComponent}
+      { path: "program/edit/:id/:name" , component: UpdateComponent},
+      { path: "chat" , component: ChatComponent},
+
     ]
   },
 
@@ -54,7 +58,8 @@ const routes: Routes = [
       { path: "home", component: DashboardHomeComponent },
       { path: "program", component: ProgramComponent },
       { path: "billing" , component:BillingComponent},
-      {path: "chat",component:ChatClientComponent}
+      {path: "chat",component:ChatClientComponent},
+      { path: "profile", component:ProfileClientComponent }
     ]
   }
 ];

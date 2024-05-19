@@ -1,4 +1,4 @@
-<div class="flex h-screen antialiased text-gray-800">
+<div *ngIf="coach" class="flex h-screen antialiased text-gray-800">
     <div class="flex flex-row h-full w-full overflow-x-hidden">
       <div class="flex flex-col py-8 pl-6 pr-2 w-64 bg-white flex-shrink-0">
         <div class="flex flex-row items-center justify-center h-12 w-full">
@@ -130,7 +130,7 @@
             </div>
             <div class="ml-4">
               <button
-              (click)="handlesubmit()" 
+              (click)="handlesubmit()"  (keyup.enter)="handlesubmit()"
                 class="flex items-center justify-center bg-indigo-500 hover:bg-indigo-600 rounded-xl text-white px-4 py-1 flex-shrink-0"
               >
                 <span>Send</span>
@@ -156,4 +156,9 @@
         </div>
       </div>
     </div>
+  </div>
+
+
+  <div *ngIf="!coach" class="flex h-screen antialiased text-gray-800 justify-center mt-40">
+    <h2>You don't have a coach</h2>
   </div>
