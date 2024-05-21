@@ -136,6 +136,7 @@ public class SecurityController {
 
     @PostMapping("/register")
     public Map<String,String> Register(@RequestBody RegisterRequest request){
+
         var user = Person.builder()
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())

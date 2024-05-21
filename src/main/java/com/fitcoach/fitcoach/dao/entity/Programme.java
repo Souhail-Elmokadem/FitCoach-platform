@@ -2,6 +2,7 @@ package com.fitcoach.fitcoach.dao.entity;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,6 +20,8 @@ public class Programme {
     private Long id;
 
     private String nom;
+
+    @Size(max = 255, message = "Description cannot exceed 255 characters")
 
     private String description;
 
