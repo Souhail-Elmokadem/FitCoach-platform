@@ -42,6 +42,7 @@ this.getCoaches();
           this.isLoading = false; // Marquer le chargement comme terminé
           this.totalElement=res.totalItems;
           if((this.totalElement/this.size)>this.currentPage){
+           
             this.currentPage++;
           }
            // Incrémenter currentPage ici pour la prochaine requête

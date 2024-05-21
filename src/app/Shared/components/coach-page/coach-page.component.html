@@ -11,7 +11,7 @@
       <div class="flex flex-wrap -mx-3">
         <div class="flex-none w-auto max-w-full px-3">
           <div class="text-base ease-soft-in-out h-18.5 w-18.5 relative inline-flex items-center justify-center rounded-xl text-white transition-all duration-200">
-            <img src="../assets/img/bruce-mars.jpg"  alt="profile_image" class="w-16 shadow-soft-sm rounded-xl" />
+            <img [src]="coach.avatar"  alt="profile_image" class="w-16 shadow-soft-sm rounded-xl" />
           </div>
         </div>
         <div class="flex-none w-auto max-w-full px-3 my-auto">
@@ -121,7 +121,9 @@
             </div>
           </div>
           <div class="flex-auto p-4">
-            <p class="leading-normal text-sm">Hi, I’m Alec Thompson, Decisions: If you can’t decide, the answer is no. If two equally difficult paths, choose the one more painful in the short term (pain avoidance is creating an illusion of equality).</p>
+            <p class="leading-normal text-sm">Hello! I'm {{coach.firstName}} {{coach.lastName}}, a passionate and certified fitness coach dedicated to helping you achieve your health and fitness goals.</p>
+
+            <p class="leading-normal text-sm">As someone who is passionate about living a healthy lifestyle, I've committed to improving my fitness, nutrition, and overall well-being. With the support of my amazing coach and the FitcoACH community, I'm working hard to achieve my personal health goals.</p>
             <hr class="h-px my-6 bg-transparent bg-gradient-to-r from-transparent via-white to-transparent" />
             <ul class="flex flex-col pl-0 mb-0 rounded-lg">
               <li class="relative block px-4 py-2 pt-0 pl-0 leading-normal bg-white border-0 rounded-t-lg text-sm text-inherit"><strong class="text-slate-700">Full Name:</strong> &nbsp; Alec M. Thompson</li>
@@ -165,7 +167,7 @@
           </div>
         </div>
       </div>
-      <div class="flex-none w-full max-w-full px-3 mt-6">
+      <!-- <div class="flex-none w-full max-w-full px-3 mt-6">
         <div class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 shadow-soft-xl rounded-2xl bg-clip-border">
           <div class="p-4 pb-0 mb-0 bg-white rounded-t-2xl">
             <h6 class="mb-1">Projects</h6>
@@ -333,40 +335,8 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
-    <footer class="pt-4">
-      <div class="w-full px-6 mx-auto">
-        <div class="flex flex-wrap items-center -mx-3 lg:justify-between">
-          <div class="w-full max-w-full px-3 mt-0 mb-6 shrink-0 lg:mb-0 lg:w-1/2 lg:flex-none">
-            <div class="leading-normal text-center text-sm text-slate-500 lg:text-left">
-              ©
-              <script>
-                document.write(new Date().getFullYear() + ",");
-              </script>
-              made with <i class="fa fa-heart"></i> by
-              <a href="https://www.creative-tim.com" class="font-semibold text-slate-700" target="_blank">Creative Tim</a>
-              for a better web.
-            </div>
-          </div>
-          <div class="w-full max-w-full px-3 mt-0 shrink-0 lg:w-1/2 lg:flex-none">
-            <ul class="flex flex-wrap justify-center pl-0 mb-0 list-none lg:justify-end">
-              <li class="nav-item">
-                <a href="https://www.creative-tim.com" class="block px-4 pt-0 pb-1 font-normal transition-colors ease-soft-in-out text-sm text-slate-500" target="_blank">Creative Tim</a>
-              </li>
-              <li class="nav-item">
-                <a href="https://www.creative-tim.com/presentation" class="block px-4 pt-0 pb-1 font-normal transition-colors ease-soft-in-out text-sm text-slate-500" target="_blank">About Us</a>
-              </li>
-              <li class="nav-item">
-                <a href="https://creative-tim.com/blog" class="block px-4 pt-0 pb-1 font-normal transition-colors ease-soft-in-out text-sm text-slate-500" target="_blank">Blog</a>
-              </li>
-              <li class="nav-item">
-                <a href="https://www.creative-tim.com/license" class="block px-4 pt-0 pb-1 pr-0 font-normal transition-colors ease-soft-in-out text-sm text-slate-500" target="_blank">License</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </footer>
+
   </div>
 </div>

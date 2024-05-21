@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ChatService } from '../../../../core/services/chat/chat.service';
 import { Chat } from '../../../models/Chat';
 import { Message } from '../../../models/Message';
@@ -12,7 +12,7 @@ import { Subscription,interval } from 'rxjs';
   templateUrl: './chat-client.component.html',
   styleUrl: './chat-client.component.css'
 })
-export class ChatClientComponent implements OnInit {
+export class ChatClientComponent implements OnInit,AfterViewChecked {
 
 
 
@@ -30,7 +30,13 @@ export class ChatClientComponent implements OnInit {
   ngOnInit(): void {
     this.getReply();
     
+    
   }
+
+  ngAfterViewChecked(): void {
+    this.setupAutoRefresh();
+  }
+
 
   getReply(){
     this.coachservice.getCoachClient().subscribe({
@@ -64,13 +70,16 @@ export class ChatClientComponent implements OnInit {
     }
   }
   handlesubmit() {
-    this.chatservice.AddMessage(this.reply,this.message).subscribe({
+    if(this.message){
+      this.chatservice.AddMessage(this.reply,this.message).subscribe({
       next:data=>{
           this.getMessages(this.reply);
           this.message="";
       },
       error:err=>console.log(err)
     })
+    }
+    
   }
   setupAutoRefresh(): void {
     if (this.messageSubscription) {

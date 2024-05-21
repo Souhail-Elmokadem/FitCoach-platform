@@ -16,7 +16,7 @@ export class ProgrammeComponent implements OnInit{
   programs:Array<Program>=[];
   keyword: string = "";
   currentPage: number = 0;
-  size: number = 3;
+  size: number = 4;
   totalItems: number = 0;
   constructor(private programservice:ProgramService,private router:Router){
   }

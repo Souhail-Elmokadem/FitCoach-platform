@@ -6,6 +6,7 @@ import { ChatService } from '../../../../core/services/chat/chat.service';
 import { Message } from '../../../models/Message';
 import { Chat } from '../../../models/Chat';
 import { Subscription,interval } from 'rxjs';
+import { Person } from '../../../models/Person';
 
 @Component({
   selector: 'app-chat',
@@ -25,6 +26,7 @@ export class ChatComponent implements OnInit,AfterViewChecked{
   reply!:string;
   messages:Array<Message>=[];
   message!: string;
+  person!:Person;
   private messageSubscription!: Subscription;
 
   @ViewChild('chatContainer') private chatContainer!: ElementRef;
@@ -32,14 +34,22 @@ export class ChatComponent implements OnInit,AfterViewChecked{
 
   }
   ngAfterViewChecked(): void {
-    
+    this.setupAutoRefresh();
   }
 
   ngOnInit(): void {
       this.getClients();
+      
+      this.authservice.getPersonWithEmail().subscribe({
+        next:(data:any)=>{
+            this.person=data;
+        },
+        error:err=>console.log(err)
+      })
   }
 
   getClients(): void {
+    
     this.clientservice.listClientCoach(this.keyword, this.currentPage, this.size).subscribe({
       next: (data: any) => {
         this.clients = data.items;
@@ -78,6 +88,7 @@ export class ChatComponent implements OnInit,AfterViewChecked{
 }
 
  handlesubmit() {
+  if(this.message.trim()==""){
     this.chatservice.AddMessage(this.reply,this.message).subscribe({
       next:data=>{
           this.getMessages(this.reply);
@@ -85,6 +96,7 @@ export class ChatComponent implements OnInit,AfterViewChecked{
       },
       error:err=>console.log(err)
     })
+  }
   }
 
   setupAutoRefresh(): void {
