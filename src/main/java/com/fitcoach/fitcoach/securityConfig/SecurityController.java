@@ -134,6 +134,7 @@ public class SecurityController {
         }
     }
 
+
     @PostMapping("/register")
     public Map<String,String> Register(@RequestBody RegisterRequest request){
 
@@ -148,6 +149,10 @@ public class SecurityController {
                 .updateAt(new Date())
                 .build();
 
+        Person person = personRepository.findByEmail(request.getEmail());
+        if(person != null){
+            throw  new RuntimeException("This Email is Already Registered !");
+        }
 
         if (request.getRole().equals(Role.COACH)) {
             coachRepository.save(

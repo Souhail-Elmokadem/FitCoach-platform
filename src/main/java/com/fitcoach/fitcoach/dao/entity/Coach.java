@@ -4,6 +4,7 @@ import com.fitcoach.fitcoach.enums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -13,6 +14,8 @@ import java.util.List;
 @Entity
 @AllArgsConstructor
 @Data
+@EqualsAndHashCode(callSuper = false)
+
 @Table(name = "coach")
 public class Coach extends Person{
 

@@ -39,7 +39,7 @@ public class ClientControllerApi {
         return new ApiResponse<>(clientDTOs.getContent(),(int)clientDTOs.getTotalElements());
     }
     @GetMapping("/listClientByCoach")
-    public ApiResponse<ClientDTO> listClient(@RequestParam(name = "Search", defaultValue = "") String kw,
+    public ApiResponse<ClientDTO> listClient(@RequestParam(name = "Search",required = false, defaultValue = "") String kw,
                                        @RequestParam(name = "size", defaultValue = "10") int size,
                                        @RequestParam(name = "page", defaultValue = "0") int page,
                                        @RequestParam(name = "coachemail" ) String coachemail ){

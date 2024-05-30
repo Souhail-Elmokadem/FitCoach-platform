@@ -11,4 +11,6 @@ import java.util.Collection;
 public interface ProgrammeRepository extends JpaRepository<Programme,Long> {
     Collection<Programme> findAllByCoach(Coach coach);
     Page<Programme> findByNomContaining(String nom, PageRequest pageRequest);
+    Page<Programme> findByNomContainingAndCoach(String nom, Coach coach, PageRequest pageRequest);
+
 }

@@ -31,6 +31,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import javax.crypto.spec.SecretKeySpec;
+import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
@@ -87,6 +88,7 @@ public class SecurityConfig {
                     .oauth2ResourceServer(ao->ao.jwt(Customizer.withDefaults()))
                     .authorizeHttpRequests(ar->ar.requestMatchers("/auth/**").permitAll())
                     .authorizeHttpRequests(ar-> ar.requestMatchers("/content/**").permitAll())
+
                     .authorizeHttpRequests(ar->ar.anyRequest().authenticated())
                     .build();
     }
@@ -115,9 +117,9 @@ public class SecurityConfig {
     @Bean
     CorsConfigurationSource corsConfigurationSource(){
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.addAllowedOrigin("*");
-        configuration.addAllowedMethod("*");
-        configuration.addAllowedHeader("*");
+        configuration.setAllowedOrigins(Arrays.asList("*"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(Arrays.asList("*"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**",configuration);
         return source;

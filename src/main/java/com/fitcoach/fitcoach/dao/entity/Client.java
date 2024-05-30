@@ -4,12 +4,15 @@ import com.fitcoach.fitcoach.enums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.*;
 
 @Entity
 @AllArgsConstructor
 @Data
+@EqualsAndHashCode(callSuper = false)
+
 @Table(name = "client")
 public class Client extends Person {
 

@@ -88,6 +88,18 @@ public class ProgrammeServiceimpl implements ProgrammeManger{
     @Override
     public ProgrammeDTO updateProgramme(Long id, ProgrammeDTO programmeDTO, Collection<ClientDTO> clientDTOS) {
         Programme programme = programmeRepository.findById(id).orElseThrow(()->new RuntimeException("Not Found"));
+
+        // Remove the programme from old clients
+        if (programme.getClients() != null) {
+            programme.getClients().forEach(client -> {
+                client.setProgramme(null);
+                clientRepository.save(client); // Update the client entity to remove the programme
+            });
+        }
+        programme.setClients(null);
+
+
+
         clientDTOS.stream().forEach(cl->{
             Client client = clientRepository.findByEmail(cl.getEmail());
             client.setProgramme(programme);
@@ -119,23 +131,26 @@ public class ProgrammeServiceimpl implements ProgrammeManger{
     @Override
     public Page<ProgrammeDTO> listProgrammesCoach(String kw, int size, int page, String coachemail) {
         Coach coach = coachRepository.findByEmail(coachemail);
-        List<ProgrammeDTO> programmeDTOS = programmeRepository
-                .findByNomContaining(kw, PageRequest.of(page,size)).stream().filter(p -> {
-                    if (p.getCoach()!=null){
-                        return p.getCoach().equals(coach);
-                    }
-                    return false;
-                })
+        if (coach == null) {
+            // Handle the case where the coach is not found, e.g., throw an exception or return an empty page
+            return Page.empty();
+        }
+
+        Page<Programme> programmesPage = programmeRepository.findByNomContainingAndCoach(kw, coach, PageRequest.of(page, size));
+        List<ProgrammeDTO> programmeDTOS = programmesPage.stream()
                 .map(p -> {
-                    ProgrammeDTO prog =programmeMapper.map(p);
+                    ProgrammeDTO prog = programmeMapper.map(p);
                     CoachDTO coachDTO = coachMapper.coachToDTO(p.getCoach());
                     Collection<Client> clients = p.getClients();
                     prog.setCoach(coachDTO);
                     prog.setMembers(clients.stream().map(clientMapper::map).collect(Collectors.toList()));
                     return prog;
-                }).collect(Collectors.toList());
-        return new PageImpl<>(programmeDTOS,PageRequest.of(page,size),programmeDTOS.size());
+                })
+                .collect(Collectors.toList());
+
+        return new PageImpl<>(programmeDTOS, PageRequest.of(page, size), programmesPage.getTotalElements());
     }
+
 
     @Override
     public ProgrammeDTO programClient(String clientemail) {

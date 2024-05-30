@@ -7,6 +7,7 @@ import com.fitcoach.fitcoach.dao.Repository.ProgrammeRepository;
 import com.fitcoach.fitcoach.dao.entity.Chat;
 import com.fitcoach.fitcoach.dao.entity.Client;
 import com.fitcoach.fitcoach.dao.entity.Coach;
+import com.fitcoach.fitcoach.dao.entity.Programme;
 import com.fitcoach.fitcoach.dtos.ChatDTO;
 import com.fitcoach.fitcoach.dtos.ClientDTO;
 import com.fitcoach.fitcoach.dtos.CoachDTO;
@@ -90,29 +91,43 @@ public class ClientSeriviceImpl implements ClientManager {
     @Override
     public Page<ClientDTO> ListClientsByCoach(String kw, int size, int page, String coachemail) {
         Coach coach = coachRepository.findByEmail(coachemail);
-        List<ClientDTO> clientDTOS = clientRepository
-                .findByEmailContainingOrFirstNameContainingOrLastNameContaining(kw,kw,kw,PageRequest.of(page,size))
-                .stream().filter(c -> {
-                    if (c.getCoach()!=null){
-                       return c.getCoach().equals(coach);
+        if (coach == null) {
+            // Handle the case where the coach is not found, e.g., throw an exception or return an empty page
+            return Page.empty();
+        }
+
+        Page<Client> clientsPage = clientRepository.findByCoachAndKeyword(
+                coach, kw, PageRequest.of(page, size));
+        List<ClientDTO> clientDTOS = clientsPage.stream()
+                .map(c -> {
+                    ClientDTO clientDTO = clientMapper.map(c);
+                    if (c.getProgramme() != null) {
+                        clientDTO.setProgramme(programmeMapper.map(c.getProgramme()));
                     }
-                    return false;
-                }).map(c->{
-                  ClientDTO clientDTO =  clientMapper.map(c);
-                  if(c.getProgramme()!=null){
-                      clientDTO.setProgramme(programmeMapper.map(c.getProgramme()));
-                  }
+                    return clientDTO;
+                })
+                .collect(Collectors.toList());
 
-                  return clientDTO;
-                }).collect(Collectors.toList());
-
-        return new PageImpl<>(clientDTOS,PageRequest.of(page,size),clientDTOS.size());
+        return new PageImpl<>(clientDTOS, PageRequest.of(page, size), clientsPage.getTotalElements());
     }
+
 
     @Override
     public ClientDTO AddClientToCoach(String clientemail, String coachemail) {
         Client client = clientRepository.findByEmail(clientemail);
         Coach coach = coachRepository.findByEmail(coachemail);
+
+        if (client.getProgramme() != null){
+            Programme programme = client.getProgramme();
+            programme.getClients().remove(client);
+            programmeRepository.save(programme);
+        }
+        List<Chat> existingChats = chatRepository.findAllByClientAndCoach(client, coach);
+        if (existingChats != null && !existingChats.isEmpty()) {
+            chatRepository.deleteAll(existingChats);
+        }
+
+        client.setProgramme(null);
 
         client.setCoach(coach);
         clientRepository.save(client);

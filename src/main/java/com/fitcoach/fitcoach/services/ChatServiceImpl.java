@@ -75,21 +75,31 @@ public class ChatServiceImpl implements ChatManager {
 
     @Override
     public ChatDTO findByCoachAndClient(String senderemail, String replyemail) {
-        Person p = personRepository.findByEmail(senderemail);
-        Person p2 = personRepository.findByEmail(replyemail);
-        Chat chat = null;
-        if (p instanceof Coach){
-            chat = chatRepository.findByCoachIdAndClientId(p.getId(), p2.getId());
-        } else if (p instanceof Client) {
-            chat = chatRepository.findByCoachIdAndClientId(p2.getId(), p.getId());
+        Person sender = personRepository.findByEmail(senderemail);
+        Person recipient = personRepository.findByEmail(replyemail);
+
+        if (sender == null || recipient == null) {
+            // Handle the case where one or both persons are not found
+            return null; // or throw an appropriate exception
         }
+
+        Chat chat = null;
+        if (sender instanceof Coach && recipient instanceof Client) {
+            chat = chatRepository.findByCoachIdAndClientId(sender.getId(), recipient.getId());
+        } else if (sender instanceof Client && recipient instanceof Coach) {
+            chat = chatRepository.findByCoachIdAndClientId(recipient.getId(), sender.getId());
+        }
+
+        if (chat == null) {
+            // Handle the case where the chat is not found
+            return null; // or throw an appropriate exception
+        }
+
         ChatDTO chatDTO = chatMapper.map(chat);
         chatDTO.setMessageDTOS(chat.getMessageList().stream().map(messagemapper::map).collect(Collectors.toList()));
         chatDTO.setCoach(coachMapper.coachToDTO(chat.getCoach()));
         chatDTO.setClient(clientMapper.map(chat.getClient()));
         return chatDTO;
-
-
-//        return  new ChatDTO();
     }
+
 }
