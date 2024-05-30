@@ -42,6 +42,9 @@ export class AuthService {
     this.sessiondata = new SessionData(false, null, null, '', '');
 
   }
+  getToken(): string | null {
+    return localStorage.getItem('access-token');
+  }
 
   public Login(email: string, password: string) {
     const loginform = {
@@ -58,6 +61,9 @@ export class AuthService {
   }
   getPersonWithEmail():Observable<Person>{
     return this.http.get<Person>(this.apiUrl+"/person?email="+this.sessiondata.username)
+  }
+  getPersonWithEmailParam(email:string):Observable<Person>{
+    return this.http.get<Person>(this.apiUrl+"/person?email="+email)
   }
 
   public loadUser(data: any) {

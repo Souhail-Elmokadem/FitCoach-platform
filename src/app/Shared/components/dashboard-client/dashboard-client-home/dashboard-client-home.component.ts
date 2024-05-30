@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../../../core/services/auth/auth.service';
+import { Person } from '../../../models/Person';
 
 @Component({
   selector: 'app-dashboard-client-home',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardClientHomeComponent implements OnInit{
   
-  constructor(){ }
+  person!:Person;
+  constructor(private authservice:AuthService){ }
+  
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    
+    this.getPerson();
+  }
+  getPerson() {
+    this.authservice.getPersonWithEmail().subscribe({
+      next:data=>this.person=data,
+      error:err=>console.log(err)
+    })
   }
 
 }

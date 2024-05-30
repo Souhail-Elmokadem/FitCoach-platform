@@ -127,8 +127,29 @@ InitialiserForm() {
     objectifs: this.program.objectifs
   })
   this.clientAffected=this.program.members;
+  if(this.program){
+    
+  }
+  fetch(this.program.attachment.toString())
+  .then(res => {
+    if (!res.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return res.blob();
+  })
+  .then(blob => {
+    const filename = this.program.attachment.trim(); // Use the URL as the filename
+    const file = new File([blob], filename);
+    this.attachment = file;
+  })
+  .catch(error => {
+    console.error('Error fetching file:', error);
+    // Handle the error as needed
+  });
+
   
 }
+
 removeClientAffected(clientId: number): void {
   this.clientAffected = this.clientAffected.filter(client => client.id !== clientId);
 }

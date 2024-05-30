@@ -13,6 +13,12 @@ import { Subscription,interval } from 'rxjs';
   styleUrl: './chat-client.component.css'
 })
 export class ChatClientComponent implements OnInit,AfterViewChecked {
+  
+  
+  onImageLoad(event: Event) {
+    const img = event.target as HTMLImageElement;
+    img.style.opacity = '1';
+  }
 
 
 

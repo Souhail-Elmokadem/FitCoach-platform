@@ -27,7 +27,8 @@ export class ClientService {
     return this.http.get<Array<Client>>(this.apiUrl+`/client/listClientByCoach?Search=${keyword}&page=${currentpage}&size=${size}&coachemail=${this.authservice.sessiondata.username}`)
 }
   public listClientbyCoach(size:number,coach:Coach):Observable<Array<Client>>{
-    return this.http.get<Array<Client>>(this.apiUrl+`/client/listClientByCoach?page=0&coachemail=${coach.email}`)
+    return this.http.get<Array<Client>>(this.apiUrl+`/client/listClientByCoach?&coachemail=${coach.email}`)
+    // http://localhost:9090/client/listClientByCoach?coachemail=coach@gmail.com
   }
   public enroll(coach:Coach){
     const formdata = new FormData();

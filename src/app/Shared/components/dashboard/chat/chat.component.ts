@@ -27,6 +27,7 @@ export class ChatComponent implements OnInit,AfterViewChecked{
   messages:Array<Message>=[];
   message!: string;
   person!:Person;
+  personChecked!:Person;
   private messageSubscription!: Subscription;
 
   @ViewChild('chatContainer') private chatContainer!: ElementRef;
@@ -39,6 +40,9 @@ export class ChatComponent implements OnInit,AfterViewChecked{
 
   ngOnInit(): void {
       this.getClients();
+      if(this.reply != null){
+        this.setupAutoRefresh();
+      }
       
       this.authservice.getPersonWithEmail().subscribe({
         next:(data:any)=>{
@@ -76,6 +80,9 @@ export class ChatComponent implements OnInit,AfterViewChecked{
   handleClick(cl:Client) {
     this.getMessages(cl.email);
     this.reply=cl.email;
+    this.authservice.getPersonWithEmailParam(cl.email).subscribe({
+      next:data=>this.personChecked=data
+    })
  }
  scrollToBottom(): void {
   try {
@@ -88,11 +95,12 @@ export class ChatComponent implements OnInit,AfterViewChecked{
 }
 
  handlesubmit() {
-  if(this.message.trim()==""){
+  if(this.message.trim()!=""){
     this.chatservice.AddMessage(this.reply,this.message).subscribe({
       next:data=>{
           this.getMessages(this.reply);
           this.message="";
+          console.log(this.message)
       },
       error:err=>console.log(err)
     })

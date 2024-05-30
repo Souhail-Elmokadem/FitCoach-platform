@@ -21,6 +21,7 @@ import { authclientguard } from './core/gards/authorization-client/authclient.gu
 import { CoachPageComponent } from './Shared/components/coach-page/coach-page.component';
 import { UpdateComponent } from './Shared/components/dashboard/programme/update/update.component';
 import { ProfileClientComponent } from './Shared/components/dashboard-client/profile-client/profile-client.component';
+import { DashboardClientHomeComponent } from './Shared/components/dashboard-client/dashboard-client-home/dashboard-client-home.component';
 
 const routes: Routes = [
   { path : "" , component : HomeComponent},
@@ -55,7 +56,7 @@ const routes: Routes = [
   {
     path: "client/service",component : DashboardClientComponent,canActivate:[authclientguard],
     children: [
-      { path: "home", component: DashboardHomeComponent },
+      { path: "home", component: DashboardClientHomeComponent },
       { path: "program", component: ProgramComponent },
       { path: "billing" , component:BillingComponent},
       {path: "chat",component:ChatClientComponent},

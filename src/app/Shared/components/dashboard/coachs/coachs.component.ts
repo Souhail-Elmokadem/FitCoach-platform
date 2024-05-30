@@ -12,7 +12,7 @@ export class CoachsComponent implements OnInit {
   clients: Array<Client> = [];
   keyword: string = "";
   currentPage: number = 0;
-  size: number = 6;
+  size: number = 4;
   totalItems: number = 0;
 
   constructor(private clientservice: ClientService) {

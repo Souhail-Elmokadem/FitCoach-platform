@@ -11,7 +11,7 @@ import { AuthService } from '../../services/auth/auth.service';
 export class LoginComponent implements OnInit {
 
   formlogin!:FormGroup
-  
+  messageError!:string;
   constructor(private fb:FormBuilder,public authservice:AuthService,private router:Router){}
   ngOnInit(): void {
     this.formlogin = this.fb.group({
@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
         this.authservice.loadUser(data);
         this.router.navigateByUrl("/")
       },
-      error:err=>console.log(err)
+      error:err=>this.messageError="The email or password you entered is incorrect."
     })
     }
 

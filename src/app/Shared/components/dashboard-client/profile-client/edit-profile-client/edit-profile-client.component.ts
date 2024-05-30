@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Person } from '../../../../models/Person';
 import { AuthService } from '../../../../../core/services/auth/auth.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -13,7 +13,7 @@ import {Location} from '@angular/common';
 export class EditProfileClientComponent implements OnInit {
   selectedFile!: File;
   imageUrl!: string;
-  
+  @Input() editMode:boolean=true;
   person!: Person
   formPerson!: FormGroup;
   @ViewChild('fileInput') fileInput!: ElementRef;
@@ -77,7 +77,8 @@ export class EditProfileClientComponent implements OnInit {
 
   handleSubmit() {
     this.editPerson();
-    this._location.back();
+    this.editMode=false;
+    window.location.reload();
   }
 
 }

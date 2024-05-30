@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../../core/services/auth/auth.service';
 import { Person } from '../../../models/Person';
+import { ImageService } from '../../../../core/services/image/image.service';
 
 @Component({
   selector: 'app-profile-client',
@@ -11,7 +12,8 @@ export class ProfileClientComponent implements OnInit {
  
   person!:Person;
   editMode:boolean=false;
-  constructor(private authservice:AuthService){ }
+  imagesrc!:string;
+  constructor(private authservice:AuthService,private imageservice:ImageService){ }
   
   ngOnInit(): void {
     this.getProfile();
@@ -21,8 +23,14 @@ export class ProfileClientComponent implements OnInit {
     this.authservice.getPersonWithEmail().subscribe({
       next:data=>{
         this.person=data
-        console.log(this.person)
+        this.getImage(this.person.avatar)
       },
+      error:err=>console.log(err)
+    })
+  }
+  getImage(avatar: string) {
+    this.imageservice.getImage(avatar).subscribe({
+      next:data=>this.imagesrc=data,
       error:err=>console.log(err)
     })
   }
